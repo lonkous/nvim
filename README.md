@@ -1,6 +1,6 @@
-## nvim
+# NVIM
 
-#Using 
+ **Using**
  - Kickstart
  - Moonlight
  - nvimtree
