@@ -64,12 +64,12 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
-'neoclide/coc.nvim',
+'nvim-tree/nvim-web-devicons',
   -- Git related plugins
+  'mbbill/undotree',
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
+'ThePrimeagen/harpoon',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -169,7 +169,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- Highlight, edit, and navigate code
+  --[[ { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
@@ -177,7 +177,7 @@ require('lazy').setup({
     config = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-  },
+  }, ]]
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -195,12 +195,43 @@ require('lazy').setup({
   --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
   { import = 'custom.plugins' },
 }, {})
+local mark = require('harpoon.mark')
+local ui = require('harpoon.ui')
+vim.keymap.set('n', '<leader>a', mark.add_file)
+vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
+
+vim.keymap.set('n', '<C-h>', function() ui.nav.file(1) end)
+vim.keymap.set('n', '<C-t>', function() ui.nav.file(2) end)
+vim.keymap.set('n', '<C-n>', function() ui.nav.file(3) end)
+vim.keymap.set('n', '<C-s>', function() ui.nav.file(4) end)
+
+vim.keymap.set("n","<leader>u", vim.cmd.UndoTreeToggle)
+vim.keymap.set("n","<leader>b", vim.cmd.NvimTreeToggle)
+
+
+vim.opt.nu = true
+
+vim.opt.relativenumber = true
+
+vim.opt.tabstop = 4
+
+vim.opt.shiftwidth = 4
+
+vim.opt.softtabstop = 4
+
+vim.opt.expandtab = true
+
+vim.opt.undofile = true
+
+vim.opt.incsearch = true
+
+vim.opt.scrolloff = 10
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.opt.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
@@ -311,71 +342,7 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
 
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
-
-  highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
-}
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -519,6 +486,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
