@@ -83,7 +83,13 @@ require('lazy').setup({
     'rafamadriz/friendly-snippets',--1
     'VonHeikemen/lsp-zero.nvim',
     'nvim-treesitter/playground',
-
+    'github/copilot.vim',
+      {
+	"windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {} end
+},
+  
+{'neoclide/coc.nvim', branch = 'release'},
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -213,16 +219,17 @@ local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 vim.keymap.set('n', '<leader>a', mark.add_file)
 vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
-
-
+vim.keymap.set('n', '<C-z>', ':undo<CR>')
+vim.keymap.set('n', '<leader>{', 'cst')
 vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
 
+
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 vim.keymap.set("n","<leader>b", vim.cmd.NvimTreeToggle)
-
+vim.keymap.set('n', '<C-x>', '"_d')
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 local lsp = require("lsp-zero")
 lsp.preset("recommended")
@@ -281,11 +288,19 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<C-h>", "^")
+
+-- Jump to the end of the line
+vim.keymap.set("n", "<C-l>", "$")
+
+-- Jump to the end of the page
+vim.keymap.set("n", "<C-k>", "<C-u>")
+-- Jump to the beginning of the page
+vim.keymap.set("n", "<C-j>", "<C-u>")
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
@@ -360,7 +375,47 @@ require('telescope').setup {
     },
   },
 }
-
+local cmp = require('cmp')
+cmp.setup({
+  sources = {
+    { name = 'nvim_lua' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'calc' },
+    { name = 'emoji' },
+    { name = 'crates' },
+    { name = 'spell' },
+    { name = 'treesitter' },
+    { name = 'vsnip' },
+    { name = 'ultisnips' },
+    { name = 'luasnip' },
+  },
+  mapping = {
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
+  },
+  snippet = {
+    expand = function(args)
+      vim.fn['vsnip#anonymous'](args.body)
+    end,
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.menu = ({
+        buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        vsnip = '[VSnip]',
+        luasnip = '[LuaSnip]',
+        cmp_tabnine = '[TabNine]',
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+})
 -- nvim tree config
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -387,7 +442,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
+vim.keymap.set('n', '<C-f>', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
