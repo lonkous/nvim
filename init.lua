@@ -83,7 +83,7 @@ require('lazy').setup({
     'rafamadriz/friendly-snippets',--1
     'VonHeikemen/lsp-zero.nvim',
     'nvim-treesitter/playground',
-    'github/copilot.vim',
+    'github/copilot.vim',--[[ 'nvim-tree/nvim-web-devicons', 'ryanoasis/vim-devicons', ]]
       {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -442,7 +442,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<C-f>', function()
+vim.keymap.set('n', '<C-f', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
