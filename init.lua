@@ -66,11 +66,14 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 'nvim-tree/nvim-web-devicons',
   -- Git related plugins
-  'mbbill/undotree',
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-'ThePrimeagen/harpoon',
-'neovim/nvim-lspconfig',
+    'mbbill/undotree',
+    'tpope/vim-fugitive',
+    'tpope/vim-rhubarb',
+    'ThePrimeagen/harpoon',
+    'neovim/nvim-lspconfig',
+    'iamcco/coc-tailwindcss',
+    "lukas-reineke/indent-blankline.nvim",
+    'romgrk/barbar.nvim',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'hrsh7th/nvim-cmp',
@@ -85,7 +88,6 @@ require('lazy').setup({
     'nvim-treesitter/playground',
     'github/copilot.vim',--[[ 'nvim-tree/nvim-web-devicons', 'ryanoasis/vim-devicons', ]]
     'vim-airline/vim-airline',
-    'vim-airline/vim-airline-themes',
       {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -135,20 +137,20 @@ require('lazy').setup({
   },
 
   { -- Theme inspired by Atom
-    'shaunsingh/moonlight.nvim',
+    'folke/tokyonight.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'moonlight'
+      vim.cmd.colorscheme 'tokyonight-moon'
     end,
   },
 
   { -- Set lualine as statusline
-    'shaunsingh/moonlight.nvim',
+    'folke/tokyonight.nvim',
     -- See `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'moonlight',
+        theme = 'tokyonight-moon',
         component_separators = '|',
         section_separators = '',
       },
