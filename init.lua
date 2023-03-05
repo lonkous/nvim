@@ -86,8 +86,6 @@ require('lazy').setup({
     'github/copilot.vim',--[[ 'nvim-tree/nvim-web-devicons', 'ryanoasis/vim-devicons', ]]
     'vim-airline/vim-airline',
     'vim-airline/vim-airline-themes',
-    'iamcco/coc-tailwindcss'
-    
       {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
