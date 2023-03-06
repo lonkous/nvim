@@ -86,6 +86,7 @@ require('lazy').setup({
     'rafamadriz/friendly-snippets',--1
     'VonHeikemen/lsp-zero.nvim',
     'nvim-treesitter/playground',
+    'luochen1990/rainbow',
     'github/copilot.vim',--[[ 'nvim-tree/nvim-web-devicons', 'ryanoasis/vim-devicons', ]]
     'vim-airline/vim-airline',
       {
@@ -317,7 +318,6 @@ vim.keymap.set("n", "<C-j>", "<C-u>")
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
-
 -- Set highlight on search
 vim.opt.hlsearch = false
 
