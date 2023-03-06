@@ -89,6 +89,8 @@ require('lazy').setup({
     'luochen1990/rainbow',
     'github/copilot.vim',--[[ 'nvim-tree/nvim-web-devicons', 'ryanoasis/vim-devicons', ]]
     'vim-airline/vim-airline',
+    'frazrepo/vim-rainbow',
+    'junegunn/fzf.vim',
       {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -138,20 +140,20 @@ require('lazy').setup({
   },
 
   { -- Theme inspired by Atom
-    'folke/tokyonight.nvim',
+    "catppuccin/nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'tokyonight-moon'
+      vim.cmd.colorscheme 'catppuccin-frappe'
     end,
   },
 
   { -- Set lualine as statusline
-    'folke/tokyonight.nvim',
+    "catppuccin/nvim",
     -- See `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'tokyonight-moon',
+        theme = 'catppuccin-frappe',
         component_separators = '|',
         section_separators = '',
       },
@@ -193,7 +195,6 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
-
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -241,7 +242,7 @@ vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>')
 vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>')
 vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>')
 vim.keymap.set('n', '<C-w>', '<Cmd>BufferClose<CR>')
-
+vim.keymap.set('n', '<C-f>', '<Cmd>Telescope current_buffer_fuzzy_find<CR>')
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 vim.keymap.set("n","<leader>b", vim.cmd.NvimTreeToggle)
 vim.keymap.set('n', '<C-x>', '"_d')
@@ -261,6 +262,10 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ["<C-Space>"] = cmp.mapping.complete(),
 })
 
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = { "c", "lua","typescript","javascript","html", "vim", "help", "query" },
+}
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
@@ -583,8 +588,6 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
