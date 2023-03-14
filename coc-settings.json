@@ -1,0 +1,14 @@
+{
+  "snippets.ultisnips.pythonPrompt": false
+}
+{
+    "div": {
+        "prefix": "div",
+        "body": [
+            "<div>",
+            "\t$0",
+            "</div>"
+        ],
+        "description": "Create a div tag"
+    }
+}

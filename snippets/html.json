@@ -1,0 +1,11 @@
+{
+    "div": {
+        "prefix": "div",
+        "body": [
+            "<duv>",
+            "\t$0",
+            "</div>"
+        ],
+        "description": "Create a div tag"
+    }
+}

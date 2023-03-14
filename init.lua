@@ -91,6 +91,10 @@ require('lazy').setup({
     'vim-airline/vim-airline',
     'frazrepo/vim-rainbow',
     'junegunn/fzf.vim',
+    'folke/trouble.nvim', 
+    "steelsojka/headwind.nvim",
+    'prettier/vim-prettier',
+    'sakshamgupta05/vim-todo-highlight',
       {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -227,10 +231,6 @@ vim.keymap.set('n', '<leader>a', mark.add_file)
 vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
 vim.keymap.set('n', '<C-z>', ':undo<CR>')
 vim.keymap.set('n', '<leader>{', 'cst')
-vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
-vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
-vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
-vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
 
 vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>')
 vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>')
@@ -312,14 +312,13 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<C-h>", "^")
-
 -- Jump to the end of the line
 vim.keymap.set("n", "<C-l>", "$")
 
 -- Jump to the end of the page
 vim.keymap.set("n", "<C-k>", "<C-u>")
 -- Jump to the beginning of the page
-vim.keymap.set("n", "<C-j>", "<C-u>")
+vim.keymap.set("n", "<C-j>", "<C-d>")
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -381,7 +380,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = {"*.js","*.ts", "*.jsx","*.tsx"},
+  callback = function()
+    vim.cmd('Prettier')
+  end,
+})
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
