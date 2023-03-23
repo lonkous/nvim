@@ -95,6 +95,9 @@ require('lazy').setup({
     "steelsojka/headwind.nvim",
     'prettier/vim-prettier',
     'sakshamgupta05/vim-todo-highlight',
+    'norcalli/nvim-colorizer.lua',
+    { "lukas-reineke/indent-blankline.nvim" },
+    { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' },
       {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
@@ -231,7 +234,7 @@ vim.keymap.set('n', '<leader>a', mark.add_file)
 vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
 vim.keymap.set('n', '<C-z>', ':undo<CR>')
 vim.keymap.set('n', '<leader>{', 'cst')
-
+vim.keymap.set('n', '<leader>m', '<Cmd>Mason<CR>|<Esc>')
 vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>')
 vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>')
 vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>')
@@ -280,7 +283,6 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
-
 vim.opt.nu = true
 
 vim.opt.relativenumber = true
