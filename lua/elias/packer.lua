@@ -40,12 +40,22 @@ vim.api.nvim_create_autocmd('BufWritePost', {
  use('vim-airline/vim-airline')
  use('vim-airline/vim-airline-themes')
  use('frazrepo/vim-rainbow')
+ 
+use {
+    'laytan/tailwind-sorter.nvim',
+    requires = {'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim'},
+    config = function() require('tailwind-sorter').setup() end,
+    run = 'cd formatter && npm i && npm run build',
+  }
 use{
   'nvim-tree/nvim-tree.lua',
   requires = {
     'nvim-tree/nvim-web-devicons', -- optional, for file icons
   },
   tag = 'nightly' -- optional, updated every week. (see issue #1193)
+}
+use {'dsznajder/vscode-es7-javascript-react-snippets',
+run = 'yarn install --frozen-lockfile && yarn compile'
 }
  use 'nvim-tree/nvim-web-devicons'
 use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
