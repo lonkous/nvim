@@ -1,7 +1,6 @@
 --makes leader to be space
 vim.g.mapleader = " "
 vim.keymap.set("n","<leader>pv", vim.cmd.Ex)
-vim.keymap.set("n","<C-s>", vim.cmd.w)
 --move highlighted stuff up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -32,3 +31,4 @@ vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>')
 vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>')
 vim.keymap.set('n', '<C-w>', '<Cmd>BufferClose<CR>')
 vim.keymap.set("n","<leader>b", vim.cmd.NvimTreeToggle)
+vim.keymap.set("n","<C-s>", vim.cmd.w)
