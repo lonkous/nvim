@@ -19,6 +19,7 @@ return require('packer').startup(function(use)
         end,
     }
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use ('romgrk/nvim-treesitter-context')
     use('prettier/vim-prettier')
 
     vim.api.nvim_create_autocmd('BufWritePost', {
@@ -28,6 +29,7 @@ return require('packer').startup(function(use)
         end,
     })
     use ('nvim-treesitter/playground')  
+    use ('junegunn/rainbow_parentheses.vim')
     use {
         "folke/which-key.nvim",
         config = function()
@@ -46,7 +48,6 @@ return require('packer').startup(function(use)
     --lines
     use ("lukas-reineke/indent-blankline.nvim") 
     --tailwind snippets
-    use('iamcco/coc-tailwindcss')
     
     use('github/copilot.vim')
     --taskbar
@@ -85,7 +86,8 @@ return require('packer').startup(function(use)
     use {'dsznajder/vscode-es7-javascript-react-snippets',
     run = 'yarn install --frozen-lockfile && yarn compile'
 }
-use 'nvim-tree/nvim-web-devicons'
+use {'norcalli/nvim-colorizer.lua'}
+use {'nvim-tree/nvim-web-devicons'}
 use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
 use {
     "folke/trouble.nvim",
@@ -95,10 +97,7 @@ use {
         }
     end
 }
-use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-}
+
 use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
