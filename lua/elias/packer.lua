@@ -42,6 +42,17 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use {
+  "folke/todo-comments.nvim",
+  requires = "nvim-lua/plenary.nvim",
+  config = function()
+    require("todo-comments").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  end
+}
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
@@ -51,8 +62,36 @@ return require('packer').startup(function(use)
     
     use('github/copilot.vim')
     --taskbar
-    use('vim-airline/vim-airline')
-    use('vim-airline/vim-airline-themes')
+    --    use('vim-airline/vim-airline')
+    --   use('vim-airline/vim-airline-themes')
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+    require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'tokyonight',
+    section_separators = {'', ''},
+    component_separators = {'', ''},
+    disabled_filetypes = {}
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    lualine_c = {
+      {'filename', path = 1},
+      {'diagnostics', sources = {'nvim_lsp'}}
+    },
+    lualine_x = {
+      {'encoding', upper = true},
+      {'fileformat', symbols = {unix = '', dos = '', mac = ''}}
+    },
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  extensions = {'fugitive'}
+}
     use {
         'lewis6991/gitsigns.nvim',
         config = function()
@@ -87,6 +126,7 @@ return require('packer').startup(function(use)
     run = 'yarn install --frozen-lockfile && yarn compile'
 }
 use {'norcalli/nvim-colorizer.lua'}
+use {'rcarriga/nvim-notify'} 
 use {'nvim-tree/nvim-web-devicons'}
 use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
 use {

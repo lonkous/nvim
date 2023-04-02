@@ -41,3 +41,5 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     vim.cmd('Prettier')
   end,
 })
+vim.opt.spelllang = "en"
+vim.opt.spell = true
