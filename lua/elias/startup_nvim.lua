@@ -1,7 +1,5 @@
-require("elias.remap")
-require("elias.set")
-require("nvim-tree").setup()
-require("startup").setup({
+function startupconfig
+local settings = {
     -- every line should be same width without escaped \
     header = {
         type = "text",
@@ -11,8 +9,9 @@ require("startup").setup({
         title = "Header",
         margin = 5,
         content = {
-   "                                  N E O V I M                                 ",
- },
+            
+            " startup",
+        },
         highlight = "Statement",
         default_color = "",
         oldfiles_amount = 0,
@@ -26,19 +25,17 @@ require("startup").setup({
         title = "Basic Commands",
         margin = 5,
         content = {
-            { " New File", ":enew", "<CR>" },
+            { " New File", "lua require'startup'.new_file()", "<leader>nf" },
             { " Find File", "Telescope find_files", "<leader>f" },
-            { " Recent Files", "Telescope oldfiles", "<leader>of" },
-            { " File Browser", ":Explore", "<leader>fb" },
+            { " Find Word", "Telescope live_grep", "<leader>lg" },
+            { " Recent Files", "Telescope oldfiles", "<leader>rf" },
+            { " File Browser", "Telescope file_browser", "<leader>fb" },
             { " Colorschemes", "Telescope colorscheme", "<leader>cs" },
         },
-       
         highlight = "String",
         default_color = "",
         oldfiles_amount = 0,
-
     },
-
     footer = {
         type = "text",
         oldfiles_directory = false,
@@ -71,5 +68,7 @@ require("startup").setup({
         folded_section = "#56b6c2",
     },
     parts = { "header", "body", "footer" },
-})
+}
+return settings
+end
 

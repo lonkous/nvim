@@ -1,8 +1,4 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
-
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -28,6 +24,14 @@ return require('packer').startup(function(use)
             vim.cmd('Prettier')
         end,
     })
+  use {
+  "startup-nvim/startup.nvim",
+  requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+} 
+use {
+    "nvim-telescope/telescope-file-browser.nvim",
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+}
     use ('nvim-treesitter/playground')  
     use ('junegunn/rainbow_parentheses.vim')
     use {
@@ -107,8 +111,9 @@ return require('packer').startup(function(use)
             })
         end
     }
-    use('frazrepo/vim-rainbow')
 
+    use('frazrepo/vim-rainbow')
+    use('nvim-pack/nvim-spectre')
     use {
         'laytan/tailwind-sorter.nvim',
         requires = {'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim'},
