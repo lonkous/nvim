@@ -58,62 +58,20 @@ return require('packer').startup(function(use)
     --tailwind snippets
 
     use('github/copilot.vim')
-   --  use('vim-airline/vim-airline')
-   --  use('vim-airline/vim-airline-themes')
+
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-   }
- require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    section_separators = { left = '', right = '' },
-  component_separators = { left = '', right = '' },
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
+        requires = { 'nvim-tree/nvim-web-devicons', opt = false }
     }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch',},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
-} 
-    use('frazrepo/vim-rainbow')
-    use('nvim-pack/nvim-spectre')
+       use('nvim-pack/nvim-spectre')
     use('tpope/vim-rhubarb')
     use('tpope/vim-surround')
     use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
-}
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
     use {
         'laytan/tailwind-sorter.nvim',
         requires = {'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim'},
