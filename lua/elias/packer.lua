@@ -55,10 +55,8 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
     --lines
     use ("lukas-reineke/indent-blankline.nvim") 
-    --tailwind snippets
 
     use('github/copilot.vim')
-
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = false }
@@ -83,14 +81,13 @@ return require('packer').startup(function(use)
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        tag = 'nightly' 
     }
     use {'dsznajder/vscode-es7-javascript-react-snippets',
     run = 'yarn install --frozen-lockfile && yarn compile'
 }
 use {'norcalli/nvim-colorizer.lua'}
 use {'nvim-tree/nvim-web-devicons'}
-use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
 use {
     "folke/trouble.nvim",
     requires = "nvim-tree/nvim-web-devicons",
@@ -103,7 +100,35 @@ use {
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
 }
+--cheatsheet
+use {
+  'sudormrfbin/cheatsheet.nvim',
 
+  requires = {
+    {'nvim-telescope/telescope.nvim'},
+    {'nvim-lua/popup.nvim'},
+    {'nvim-lua/plenary.nvim'},
+  }
+}
+use({
+  "utilyre/barbecue.nvim",
+  tag = "*",
+  requires = {
+    "SmiteshP/nvim-navic",
+    "nvim-tree/nvim-web-devicons", -- optional dependency
+  },
+  after = "nvim-web-devicons", -- keep this if you're using NvChad
+  config = function()
+    require("barbecue").setup()
+  end,
+})
+use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
+--merge tool
+use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+--merge conflict
+use {'akinsho/git-conflict.nvim', tag = "*", config = function()
+  require('git-conflict').setup()
+end}
 use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
