@@ -14,7 +14,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<C-h>", "^")
 -- Jump to the end of the line
 vim.keymap.set("n", "<C-l>", "$")
-
+vim.keymap.set("n", "<C-d>", '<Cmd>t.<CR>')
 -- Jump to the end of the page
 vim.keymap.set("n", "<C-k>", "<C-u>")
 -- Jump to the beginning of the page
