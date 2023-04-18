@@ -1,47 +1,84 @@
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
+
+
+    -----------------------Base-----------------------
+
+
+    use ('wbthomason/packer.nvim') -- package manager
+
+    use ( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}) -- treesitter
+
+    use ('romgrk/nvim-treesitter-context') -- context
+
+    use {
+        "nvim-telescope/telescope-file-browser.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    } -- file browser
+
+    use ('nvim-treesitter/playground')  -- treesitter playground
+
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
-    }
+    } -- telescope
+
+
+    ----------------------Themes----------------------
+
+
     use { 
         "catppuccin/nvim",
         as ="catppuccin",
         config = function()
             vim.cmd.colorscheme 'catppuccin-frappe'
         end,
-    }
-    use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-    use ('romgrk/nvim-treesitter-context')
-    use('prettier/vim-prettier')
+    } -- color
+
+    use ("lukas-reineke/indent-blankline.nvim") -- indent line
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' 
+    } -- file tree
+
+    use {'nvim-tree/nvim-web-devicons'} -- icons
+
+    use ({
+        "utilyre/barbecue.nvim",
+        tag = "*",
+        requires = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        config = function()
+            require("barbecue").setup()
+        end,
+    }) -- route to file
+
+    use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'} -- tabline
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = false }
+    } -- status line
+
+
+    ---------------------Tools---------------------
+
+
+    use ('prettier/vim-prettier') -- formatter
+
     vim.api.nvim_create_autocmd('BufWritePost', {
         pattern = {"*.js","*.ts", "*.jsx","*.tsx"},
         callback = function()
             vim.cmd('Prettier')
         end,
-    })
-    use {
-        "startup-nvim/startup.nvim",
-        requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-    } 
-    use {
-        "nvim-telescope/telescope-file-browser.nvim",
-        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-    }
-    use ('nvim-treesitter/playground')  
-    use ('junegunn/rainbow_parentheses.vim')
-    use {
-        "folke/which-key.nvim",
-        config = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-            require("which-key").setup {
-                -- refer to the configuration section below
-            }
-        end
-    }
+    }) -- auto run prettier on save
+
     use {
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -49,86 +86,92 @@ return require('packer').startup(function(use)
             require("todo-comments").setup {
             }
         end
-    }
-    use('theprimeagen/harpoon')
-    use('mbbill/undotree')
-    use('tpope/vim-fugitive')
-    --lines
-    use ("lukas-reineke/indent-blankline.nvim") 
+    } -- todo comments
 
-    use('github/copilot.vim')
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = false }
-    }
-       use('nvim-pack/nvim-spectre')
-    use('tpope/vim-rhubarb')
-    use('tpope/vim-surround')
+    use ('theprimeagen/harpoon') -- jump to files
+
+    use ('mbbill/undotree') -- undo tree
+
+    use ('tpope/vim-fugitive') -- git
+
+    use ('github/copilot.vim') -- copilot
+
+    use ('tpope/vim-surround') -- surround text with quotes, brackets, etc
+
+    use ('nvim-pack/nvim-spectre') -- search and replace
+
+    use ('RRethy/vim-illuminate') -- highlight word under cursor
+    
+    use ('HiPhish/nvim-ts-rainbow2') -- rainbow parentheses
+
     use {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup()
         end
-    }
+    } -- comment with keybindings of gc gcc
+
     use {
         'laytan/tailwind-sorter.nvim',
         requires = {'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim'},
         config = function() require('tailwind-sorter').setup() end,
         run = 'cd formatter && npm i && npm run build',
-    }
-    use{
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        tag = 'nightly' 
-    }
+    } -- tailwind class sorter
+
     use {'dsznajder/vscode-es7-javascript-react-snippets',
     run = 'yarn install --frozen-lockfile && yarn compile'
-}
-use {'norcalli/nvim-colorizer.lua'}
-use {'nvim-tree/nvim-web-devicons'}
+} --react snippet
+
+use {
+    "windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {} end
+} -- auto pairs
+
 use {
     "folke/trouble.nvim",
     requires = "nvim-tree/nvim-web-devicons",
     config = function()
-        require("trouble").setup {
-        }
+        require("trouble").setup {}
     end
-}
-use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-}
---cheatsheet
-use {
-  'sudormrfbin/cheatsheet.nvim',
+} -- shows errors
 
-  requires = {
-    {'nvim-telescope/telescope.nvim'},
-    {'nvim-lua/popup.nvim'},
-    {'nvim-lua/plenary.nvim'},
-  }
-}
-use({
-  "utilyre/barbecue.nvim",
-  tag = "*",
-  requires = {
-    "SmiteshP/nvim-navic",
-    "nvim-tree/nvim-web-devicons", -- optional dependency
-  },
-  after = "nvim-web-devicons", -- keep this if you're using NvChad
-  config = function()
-    require("barbecue").setup()
-  end,
-})
-use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
---merge tool
-use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
---merge conflict
+
+------------------Help---------------------
+
+
+use {
+    "folke/which-key.nvim",
+    config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        require("which-key").setup {}
+    end
+} -- shows keybindings
+
+use {
+    'sudormrfbin/cheatsheet.nvim',
+
+    requires = {
+        {'nvim-telescope/telescope.nvim'},
+        {'nvim-lua/popup.nvim'},
+        {'nvim-lua/plenary.nvim'},
+    }
+} --Cheatsheet
+
+
+------------------Git---------------------
+
+
+use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' } --Diffview
+
 use {'akinsho/git-conflict.nvim', tag = "*", config = function()
-  require('git-conflict').setup()
-end}
+    require('git-conflict').setup()
+end} --Git Conflict
+
+
+------------------LSP---------------------
+
+
 use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
@@ -151,4 +194,9 @@ use {
         {'rafamadriz/friendly-snippets'}, -- Optional
     }
 }
+
+require('packer').use({
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu',
+})
   end)
