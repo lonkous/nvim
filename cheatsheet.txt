@@ -1,0 +1,14 @@
+Close                                    | <C-C>
+Toggle selection                         | <Tab>
+Open file in tab                         | <C-T>
+Open file in split                       | <C-X>
+Open file in vsplit                      | <C-V>
+Scroll up in preview window              | <C-U>
+Scroll down in preview window            | <C-D>
+Send to quickfix list                    | <C-Q>
+Send selected items to quickfix list     | <M-Q>
+
+UndoTree                                 | :UndotreeToggle
+Search in current file                   | <leader>s
+Search and replace Specture              | <leader>sp
+

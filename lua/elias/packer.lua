@@ -156,7 +156,7 @@ use {
         {'nvim-lua/popup.nvim'},
         {'nvim-lua/plenary.nvim'},
     }
-} --Cheatsheet
+} -- cheatsheet
 
 
 ------------------Git---------------------
