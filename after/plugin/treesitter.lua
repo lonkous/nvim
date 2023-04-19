@@ -14,4 +14,5 @@ require'nvim-treesitter.configs'.setup {
 	autopairs = { enable = true },
   autotag = { enable = true },
 }
+require("telescope").load_extension("file_browser")
 require 'nvim-treesitter.install'.compilers = { "clang" }

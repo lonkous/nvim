@@ -98,8 +98,6 @@ return require('packer').startup(function(use)
 
     use ('tpope/vim-surround') -- surround text with quotes, brackets, etc
 
-    use ('nvim-pack/nvim-spectre') -- search and replace
-
     use ('RRethy/vim-illuminate') -- highlight word under cursor
     
     use ('HiPhish/nvim-ts-rainbow2') -- rainbow parentheses
@@ -117,10 +115,6 @@ return require('packer').startup(function(use)
         config = function() require('tailwind-sorter').setup() end,
         run = 'cd formatter && npm i && npm run build',
     } -- tailwind class sorter
-
-    use {'dsznajder/vscode-es7-javascript-react-snippets',
-    run = 'yarn install --frozen-lockfile && yarn compile'
-} --react snippet
 
 use {
     "windwp/nvim-autopairs",
@@ -148,25 +142,10 @@ use {
     end
 } -- shows keybindings
 
-use {
-    'sudormrfbin/cheatsheet.nvim',
-
-    requires = {
-        {'nvim-telescope/telescope.nvim'},
-        {'nvim-lua/popup.nvim'},
-        {'nvim-lua/plenary.nvim'},
-    }
-} -- cheatsheet
-
-
 ------------------Git---------------------
 
 
 use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' } --Diffview
-
-use {'akinsho/git-conflict.nvim', tag = "*", config = function()
-    require('git-conflict').setup()
-end} --Git Conflict
 
 
 ------------------LSP---------------------
