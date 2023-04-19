@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
         "catppuccin/nvim",
         as ="catppuccin",
         config = function()
-            vim.cmd.colorscheme 'catppuccin-frappe'
+            vim.cmd.colorscheme 'catppuccin-mocha'
         end,
     } -- color
 
@@ -88,15 +88,11 @@ return require('packer').startup(function(use)
         end
     } -- todo comments
 
-    use ('theprimeagen/harpoon') -- jump to files
-
     use ('mbbill/undotree') -- undo tree
 
     use ('tpope/vim-fugitive') -- git
 
     use ('github/copilot.vim') -- copilot
-
-    use ('tpope/vim-surround') -- surround text with quotes, brackets, etc
 
     use ('RRethy/vim-illuminate') -- highlight word under cursor
     
@@ -174,8 +170,4 @@ use {
     }
 }
 
-require('packer').use({
-    'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu',
-})
   end)
