@@ -66,9 +66,9 @@ return require('packer').startup(function(use)
         config = function()
             require("barbecue").setup()
         end,
-    })                                                           -- route to file
+    }) -- route to file
 
-    use { 'romgrk/barbar.nvim', requires = 'nvim-web-devicons' } -- tabline
+    use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
 
     use {
         'nvim-lualine/lualine.nvim',
@@ -148,6 +148,19 @@ return require('packer').startup(function(use)
 
     use("onsails/lspkind.nvim")
 
+    pse {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
+    }
+    use {
+        "danymat/neogen",
+        config = function()
+            require('neogen').setup {}
+        end,
+        requires = "nvim-treesitter/nvim-treesitter",
+        -- Uncomment next line if you want to follow only stable versions
+        -- tag = "*"
+    }
 
 
     ------------------Help---------------------
