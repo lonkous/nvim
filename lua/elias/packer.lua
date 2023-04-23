@@ -124,6 +124,22 @@ use {
         require("trouble").setup {}
     end
 } -- shows errors
+use('j-hui/fidget.nvim')
+require"fidget".setup{}
+
+use('onsails/lspkind-nvim')
+
+-- install without yarn or npm
+use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+})
+
+use("ethanholz/nvim-lastplace")
+
+use("onsails/lspkind.nvim")
+
+
 
 
 ------------------Help---------------------
@@ -171,3 +187,4 @@ use {
 }
 
   end)
+
