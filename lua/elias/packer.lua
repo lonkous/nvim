@@ -130,7 +130,9 @@ return require('packer').startup(function(use)
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
         config = function()
-            require("trouble").setup {}
+            require("trouble").setup {
+                mode = "lsp_document_diagnostics",
+            }
         end
     } -- shows errors
     use('j-hui/fidget.nvim')
@@ -148,7 +150,7 @@ return require('packer').startup(function(use)
 
     use("onsails/lspkind.nvim")
 
-    pse {
+    use {
         'glacambre/firenvim',
         run = function() vim.fn['firenvim#install'](0) end
     }
@@ -161,6 +163,13 @@ return require('packer').startup(function(use)
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
     }
+    use {
+  'nyngwang/suave.lua',
+    }
+use {
+    's1n7ax/nvim-search-and-replace',
+    config = function() require'nvim-search-and-replace'.setup() end,
+}
 
 
     ------------------Help---------------------
