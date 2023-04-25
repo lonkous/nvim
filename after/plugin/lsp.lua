@@ -2,12 +2,24 @@ local lsp = require("lsp-zero").preset(
 {
     "lua",
     "rust",
+    "python",
+    "bash",
+    "java",
     "typescript",
     "typescriptreact",
     "javascript",
     "javascriptreact",
-}
-)
+    "html",
+    "css",
+    "go",
+    "php",
+    "c",
+    "cpp",
+    "csharp",
+    "kotlin",
+    "vue",
+
+})
 
 lsp.ensure_installed({
     'tsserver',
@@ -52,6 +64,8 @@ lsp.set_preferences({
     sign_icons = {
         error = '',
         warn = '',
+        info = '',
+        hint = '',
     }
 })
 

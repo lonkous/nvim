@@ -42,4 +42,4 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   end,
 })
 vim.opt.spelllang = "en"
-vim.opt.spell = true
+vim.opt.spell = false

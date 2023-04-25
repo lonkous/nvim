@@ -131,7 +131,7 @@ return require('packer').startup(function(use)
         requires = "nvim-tree/nvim-web-devicons",
         config = function()
             require("trouble").setup {
-                mode = "lsp_document_diagnostics",
+                mode = "document_diagnostics",
             }
         end
     } -- shows errors
@@ -163,13 +163,15 @@ return require('packer').startup(function(use)
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
     }
-    use {
-  'nyngwang/suave.lua',
+   use {
+  'rmagatti/auto-session',
+  config = function()
+    require("auto-session").setup {
+      log_level = "error",
+      auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
     }
-use {
-    's1n7ax/nvim-search-and-replace',
-    config = function() require'nvim-search-and-replace'.setup() end,
-}
+  end
+} 
 
 
     ------------------Help---------------------
