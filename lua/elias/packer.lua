@@ -172,6 +172,9 @@ return require('packer').startup(function(use)
     }
   end
 } 
+use {
+    'ldelossa/nvim-ide'
+}
 
 
     ------------------Help---------------------
