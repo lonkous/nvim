@@ -33,3 +33,6 @@ vim.keymap.set('n', '<A-q>', '<Cmd>q<CR>')
 vim.keymap.set("n", "<leader>b", vim.cmd.NvimTreeToggle)
 vim.keymap.set("n", "<C-s>", vim.cmd.w)
 vim.keymap.set("n", "<leader>sp", '<Cmd>so <CR> <Cmd>PackerSync<CR>')
+vim.keymap.set("n", "<leader>os", '<Cmd>so <CR>')
+vim.keymap.set("n", "<leader>G", ':FloatermNew lazygit<CR>')
+

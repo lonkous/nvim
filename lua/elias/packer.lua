@@ -175,6 +175,7 @@ return require('packer').startup(function(use)
 use {
     'ldelossa/nvim-ide'
 }
+use 'voldikss/vim-floaterm'
 
 
     ------------------Help---------------------
