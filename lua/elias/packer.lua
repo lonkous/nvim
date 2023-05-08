@@ -171,11 +171,14 @@ return require('packer').startup(function(use)
       auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
     }
   end
-} 
+}
 use {
     'ldelossa/nvim-ide'
 }
+
 use 'voldikss/vim-floaterm'
+
+use 'f-person/git-blame.nvim'
 
 
     ------------------Help---------------------
