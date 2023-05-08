@@ -180,6 +180,14 @@ use 'voldikss/vim-floaterm'
 
 use 'f-person/git-blame.nvim'
 
+use {
+    'phaazon/hop.nvim',
+    branch = 'v2',
+    config = function()
+        require'hop'.setup {}
+    end
+}
+
 
     ------------------Help---------------------
 
