@@ -27,6 +27,8 @@ vim.api.nvim_set_keymap(
 require("telescope").setup {
     defaults = {
         layout_strategy = "flex",
+        file_sorter = require('telescope.sorters').get_fuzzy_file,
+    file_ignore_patterns = {},
         layout_config = {
             vertical = {
             prompt_position = 'top',
@@ -39,5 +41,8 @@ require("telescope").setup {
         },
         sorting_strategy = "ascending",
     },
+    file_browser = {
+    sorter = require('telescope.sorters').get_fzy_sorter,
+  },
 }
 
