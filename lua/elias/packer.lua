@@ -37,12 +37,11 @@ return require('packer').startup(function(use)
 
 
     use {
-        "catppuccin/nvim",
-        as = "catppuccin",
-        config = function()
-            vim.cmd.colorscheme 'catppuccin-mocha'
-        end,
-    }                                          -- color
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
+}                              -- color
 
     use("lukas-reineke/indent-blankline.nvim") -- indent line
 
@@ -54,7 +53,9 @@ return require('packer').startup(function(use)
         tag = 'nightly'
     }                                     -- file tree
 
-    use { 'nvim-tree/nvim-web-devicons' } -- icons
+    use 'nvim-tree/nvim-web-devicons'
+
+    use 'echasnovski/mini.animate'
 
     use({
         "utilyre/barbecue.nvim",
@@ -74,6 +75,12 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = false }
     } -- status line
+    
+    use {'echasnovski/mini.indentscope'}
+
+    use {
+      'lewis6991/gitsigns.nvim',
+    }
 
 
     ---------------------Tools---------------------

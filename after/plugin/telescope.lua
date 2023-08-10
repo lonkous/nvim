@@ -20,7 +20,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 "n",
 "<space>f",
-":Telescope live_grep cwd=<current_directory> hidden=true<CR>",
+":Telescope live_grep search_dirs=. hidden=true<CR>",
 { noremap = true }
 )
 

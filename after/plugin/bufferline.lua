@@ -3,7 +3,7 @@ require("bufferline").setup {
     options = {
         separator_style = "slant",
         diagnostics = "nvim_lsp",
-        buffer_close_icon = '',
+        buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',
         left_trunc_marker = '',

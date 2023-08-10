@@ -17,4 +17,29 @@ ls.add_snippets("typescriptreact", {
 ls.filetype_extend("typescriptreact", { "javascriptreact" })
 ls.filetype_extend("typescript", { "javascript" })
 ls.filetype_extend("javascript", { "html" })
+ls.filetype_extend("xml", { "html" })
 ls.filetype_extend("typescriptreact", { "javascript" })
+
+ls.add_snippets("xml", {
+  
+  ls.parser.parse_snippet(
+    "odoo",
+    "<odoo>${1}</odoo>"
+  ),
+
+ls.parser.parse_snippet(
+    "data",
+    "<data>${1}</data>"
+  ),
+ls.parser.parse_snippet(
+    "fields",
+    "<fields>${1}</fields>"
+  ),
+ls.parser.parse_snippet(
+    "record",
+    "<record>${1}</record>"
+  ),
+
+
+})
+

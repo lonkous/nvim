@@ -98,7 +98,7 @@ cmp.setup {
                 error = '',
                 warn = '',
                 info = '',
-                hint = '',
+                hint = '',
             }
         })
 
