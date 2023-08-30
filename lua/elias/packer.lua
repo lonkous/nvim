@@ -86,15 +86,6 @@ return require('packer').startup(function(use)
     ---------------------Tools---------------------
 
 
-    use('prettier/vim-prettier') -- formatter
-
-    vim.api.nvim_create_autocmd('BufWritePost', {
-        pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" },
-        callback = function()
-            vim.cmd('Prettier')
-        end,
-    }) -- auto run prettier on save
-
     use {
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -158,10 +149,6 @@ return require('packer').startup(function(use)
     use("onsails/lspkind.nvim")
 
     use {
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end
-    }
-    use {
         "danymat/neogen",
         config = function()
             require('neogen').setup {}
@@ -179,9 +166,6 @@ return require('packer').startup(function(use)
     }
   end
 }
-use {
-    'ldelossa/nvim-ide'
-}
 
 use 'voldikss/vim-floaterm'
 
@@ -194,6 +178,8 @@ use {
         require'hop'.setup {}
     end
 }
+
+use {'SirVer/ultisnips'}
 
 
     ------------------Help---------------------

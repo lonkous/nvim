@@ -32,8 +32,8 @@ ls.parser.parse_snippet(
     "<data>${1}</data>"
   ),
 ls.parser.parse_snippet(
-    "fields",
-    "<fields>${1}</fields>"
+    "field",
+    "<field>${1}</field>"
   ),
 ls.parser.parse_snippet(
     "record",
