@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "dev" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,7 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Official SonarQube Scan
+      # Runs a single command using the runners shell
+      - name: Super-Linter
         # You may pin to the exact commit or the version.
-        # uses: SonarSource/sonarqube-scan-action@69c1a75940dec6249b86dace6b630d3a2ae9d2a7
-        uses: SonarSource/sonarqube-scan-action@v2.0.1
+        # uses: super-linter/super-linter@f3279a4414f050cf9dbb2b56db7eae31a9c8ee35
+        uses: super-linter/super-linter@v5.7.0
