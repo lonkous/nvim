@@ -62,7 +62,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 "n",
 "<space>od",
-":Telescope live_grep search_dirs=~/Documents/odoo/<CR>",
+":Telescope live_grep search_dirs=~/Documents/odoo/odoo/<CR>",
 { noremap = true }
 )
 

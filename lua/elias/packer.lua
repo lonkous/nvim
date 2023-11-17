@@ -14,6 +14,7 @@ return require('packer').startup(function(use)
     -----------------------Base-----------------------
 
 
+
     use('wbthomason/packer.nvim')                                 -- package manager
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' }) -- treesitter
@@ -52,6 +53,18 @@ return require('packer').startup(function(use)
         },
         tag = 'nightly'
     }                                     -- file tree
+    require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 60
+ },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 
     use 'nvim-tree/nvim-web-devicons'
 
@@ -134,7 +147,9 @@ return require('packer').startup(function(use)
         end
     } -- shows errors
     use('j-hui/fidget.nvim')
-    require "fidget".setup {}
+    require "fidget".setup {
+    legacy = true,
+    }
 
     use('onsails/lspkind-nvim')
 
