@@ -37,5 +37,6 @@ vim.keymap.set("n", "<leader>os", '<Cmd>so <CR>')
 vim.keymap.set("n", "<leader>G", ':FloatermNew lazygit<CR>')
 vim.keymap.set("n", "<A-f>", ':lua vim.lsp.buf.format()<CR>')
 vim.keymap.set("n", "<A-t>", ':TroubleToggle<CR>')
+vim.keymap.set("v", "<A-c>", '"+y')
 
 

@@ -46,7 +46,7 @@ return require('packer').startup(function(use)
 
     use("lukas-reineke/indent-blankline.nvim") -- indent line
 
-    use {
+        use {
         'nvim-tree/nvim-tree.lua',
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
@@ -147,13 +147,9 @@ return require('packer').startup(function(use)
         end
     } -- shows errors
     use('j-hui/fidget.nvim')
-    require "fidget".setup {
-    legacy = true,
-    }
+    require "fidget".setup {}
 
     use('onsails/lspkind-nvim')
-
-    -- install without yarn or npm
     use({
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,

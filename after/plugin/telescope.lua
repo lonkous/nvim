@@ -62,14 +62,13 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 "n",
 "<space>od",
-":Telescope live_grep search_dirs=~/Documents/odoo/odoo/<CR>",
+":Telescope live_grep search_dirs=~/odoo/<CR>",
 { noremap = true }
 )
 
 
 require("telescope").setup {
     defaults = {
-        layout_strategy = "flex",
         file_sorter = require('telescope.sorters').get_fuzzy_file,
     file_ignore_patterns = {},
         layout_config = {
