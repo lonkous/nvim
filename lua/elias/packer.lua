@@ -152,10 +152,6 @@ return require('packer').startup(function(use)
   require "fidget".setup {}
 
   use('onsails/lspkind-nvim')
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
 
   use("ethanholz/nvim-lastplace")
 
