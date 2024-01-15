@@ -80,8 +80,13 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 
 vim.diagnostic.config({
-  virtual_text = false,
-  severity_sort = true,
+  virtual_text = {
+    source = "if_many",
+    spacing = 4,
+    prefix = " ",
+    style = { italic = true },
+  },
+
   float = {
     style = 'minimal',
     border = 'rounded',
@@ -89,11 +94,13 @@ vim.diagnostic.config({
     header = '',
     prefix = '',
   },
+  signs = true,
+  underline = true,
+  update_in_insert = true,
+  severity_sort = true,
 })
-
 local cmp = require('cmp')
 local cmp_action = lsp_zero.cmp_action()
-local cmp_format = lsp_zero.cmp_format()
 
 require('luasnip.loaders.from_vscode').lazy_load()
 
