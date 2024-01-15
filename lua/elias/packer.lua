@@ -114,8 +114,41 @@ return require('packer').startup(function(use)
 
   use('tpope/vim-fugitive')       -- git
 
-  use('github/copilot.vim')       -- copilot
-
+  use {
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
+  config = function()
+    require("copilot").setup({
+    suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    debounce = 75,
+    keymap = {
+      accept = "<Tab>",
+      accept_word = false,
+      accept_line = false,
+      next = "<M-]>",
+      prev = "<M-[>",
+      dismiss = "<C-]>",
+    },
+  },
+  filetypes = {
+    yaml = false,
+    markdown = false,
+    help = false,
+    gitcommit = false,
+    gitrebase = false,
+    hgcommit = false,
+    svn = false,
+    cvs = false,
+    ["."] = false,
+  },
+  copilot_node_command = 'node', -- Node.js version must be > 18.x
+  server_opts_overrides = {},
+})
+  end,
+}
   use('RRethy/vim-illuminate')    -- highlight word under cursor
 
   use('HiPhish/nvim-ts-rainbow2') -- rainbow parentheses
@@ -140,6 +173,7 @@ return require('packer').startup(function(use)
   } -- auto pairs
 
   use {
+
     "folke/trouble.nvim",
     requires = "nvim-tree/nvim-web-devicons",
     config = function()
