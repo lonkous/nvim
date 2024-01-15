@@ -13,9 +13,6 @@ end
 
 ColorMyPencils()
 
-
---- if you want to know more about lsp-zero and mason.nvim
---- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {},
@@ -111,9 +108,9 @@ local lspkind = require('lspkind')
 cmp.setup({
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'symbol_text',                -- show only symbol annotations
-      maxwidth = 50,                       -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      ellipsis_char = '...',               -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+      mode = 'symbol_text',  -- show only symbol annotations
+      maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
       before = function(entry, vim_item)
         vim_item.kind = kind_icons[vim_item.kind] .. " |" .. vim_item.kind
         return vim_item
