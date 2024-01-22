@@ -114,7 +114,6 @@ return require('packer').startup(function(use)
 
     use('tpope/vim-fugitive') -- git
 
-    use {"github/copilot.lua"}
 
     use('RRethy/vim-illuminate')    -- highlight word under cursor
 
@@ -123,9 +122,14 @@ return require('packer').startup(function(use)
     use {
         'numToStr/Comment.nvim',
         config = function()
-            require('Comment').setup()
+            require('Comment').setup({})
         end
     } -- comment with keybindings of gc gcc
+
+    use { "ibhagwan/fzf-lua",
+        -- optional for icon support
+        requires = { "nvim-tree/nvim-web-devicons" }
+    }
 
     use {
         'laytan/tailwind-sorter.nvim',
