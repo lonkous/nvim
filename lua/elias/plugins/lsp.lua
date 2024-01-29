@@ -44,6 +44,18 @@ return {
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
       end
 
+      lspconfig['pyflakes'].setup {
+        settings = {
+          pyflakes = {
+            plugins = {
+              pycodestyle = {
+                ignore = { 'W391' },
+                maxLineLength = 100
+              }
+            }
+          }
+        }
+      }
       lspconfig['pylsp'].setup {
         settings = {
           pylsp = {
@@ -56,9 +68,9 @@ return {
           }
         }
       }
-      require'lspconfig'.tsserver.setup{}
-      require'lspconfig'.bashls.setup{}
-      require'lspconfig'.lemminx.setup{}
+      require 'lspconfig'.tsserver.setup {}
+      require 'lspconfig'.bashls.setup {}
+      require 'lspconfig'.lemminx.setup {}
 
       lspconfig["lua_ls"].setup({
         capabilities = capabilities,
