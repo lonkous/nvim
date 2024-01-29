@@ -7,7 +7,7 @@ return {
     version = "*",
     dependencies = {
       "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons", -- optional dependency
+      "nvim-tree/nvim-web-devicons",       -- optional dependency
     },
     opts = {
       -- configurations go here
@@ -80,7 +80,31 @@ return {
     }
   end
 },
-  { "SirVer/ultisnips" },
+  {
+    "SirVer/ultisnips",
+    config = function()
+      local ls = require("luasnip")
+      ls.add_snippets("javascript", {
+
+        ls.parser.parse_snippet(
+          "ccc",
+          "console.log(${1:variable})"
+        ),
+
+      })
+      ls.add_snippets("python", {
+        ls.parser.parse_snippet(
+          "lo",
+          "_logger.info(${1})"
+        )
+      })
+      ls.filetype_extend("typescriptreact", { "javascriptreact" })
+      ls.filetype_extend("typescript", { "javascript" })
+      ls.filetype_extend("javascript", { "html" })
+      ls.filetype_extend("xml", { "html" })
+      ls.filetype_extend("typescriptreact", { "javascript" })
+    end
+  },
   { "github/copilot.vim" },
 
 }
