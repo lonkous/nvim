@@ -43,6 +43,22 @@ return {
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
       end
 
+      lspconfig['pylsp'].setup {
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                ignore = { 'W391' },
+                maxLineLength = 100
+              }
+            }
+          }
+        }
+      }
+      require'lspconfig'.tsserver.setup{}
+      require'lspconfig'.bashls.setup{}
+      require'lspconfig'.lemminx.setup{}
+
       lspconfig["lua_ls"].setup({
         capabilities = capabilities,
         on_attach = on_attach,
