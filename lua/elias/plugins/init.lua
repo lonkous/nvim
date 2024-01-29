@@ -79,6 +79,8 @@ return {
       auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
     }
   end
-}
-, { "SirVer/ultisnips" }
+},
+  { "SirVer/ultisnips" },
+  { "github/copilot.vim" },
+
 }
