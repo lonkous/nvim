@@ -83,6 +83,10 @@ return {
           "bashls",   --Bash ls
           "tsserver", --Typescript ls
           "lemminx",  --Lemminx ls
+          "vimls",    --Vimscript
+          "jsonls",   --Json ls
+          "html",     --Html lsp
+          "cssls",    --Css ls
         },
         -- auto-install configured servers (with lspconfig)
         automatic_installation = true, -- not the same as ensure_installed
