@@ -5,9 +5,8 @@ return {
     on_colors = function(colors)
       colors.border = colors.comment
     end,
-    style = "storm",
   },
   config = function()
-    vim.cmd([[colorscheme tokyonight-night]])
-  end,
+    vim.cmd [[colorscheme tokyonight]]
+  end
 }

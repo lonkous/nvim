@@ -29,7 +29,7 @@ return {
           keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
           keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
           keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-          keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+          keymap.set("n", "H", function() vim.diagnostic.open_float() end, opts)
           keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
           keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
           keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
