@@ -47,8 +47,26 @@ return {
             local signs = { Error = "✘", Warn = " ", Hint = "󰠠 ", Info = " " }
             for type, icon in pairs(signs) do
                 local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+                vim.fn.sign_define(hl,
+                    { text = icon, texthl = hl, numhl = "" })
+                vim.cmd("highlight link " .. hl .. " LspDiagnosticsSign" .. type)
             end
+
+            local odoo_root_dir = function(fname)
+                return lspconfig.util.find_git_ancestor(fname) or
+                    lspconfig.util.root_pattern('.odoo_lsp', '.odoo_lsp.json')(fname)
+            end
+
+            -- Setup for odoo-lsp
+            lspconfig.odoo_lsp.setup {
+                cmd = { 'odoo-lsp' },
+                filetypes = { 'javascript', 'xml', 'python' },
+                root_dir = odoo_root_dir,
+                on_attach = function(client, bufnr)
+                    -- Your on_attach function here, similar to what you've defined globally or custom for odoo-lsp
+                end,
+                capabilities = capabilities,
+            }
         end,
     },
     {
@@ -96,6 +114,22 @@ return {
             mason_lspconfig.setup_handlers {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {}
+                end,
+                function(server_name)
+                    --
+                    -- This function handles the setup for each server Mason manages
+                    if server_name == "odoo_lsp" then
+                        -- Custom setup for odoo-lsp
+                        lspconfig.odoo_lsp.setup {
+                            cmd = { 'odoo-lsp' },
+                            filetypes = { 'javascript', 'xml', 'python' },
+                            root_dir = root_dir,
+                            -- Include any other necessary configurations here
+                        }
+                    else
+                        -- Default handler for all other servers
+                        lspconfig[server_name].setup {}
+                    end
                 end,
             }
         end,
