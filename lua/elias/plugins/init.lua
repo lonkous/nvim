@@ -63,16 +63,29 @@ return {
             require("which-key").setup {}
         end
     },
+    { "junegunn/fzf",         build = "./install --bin" },
     {
         "ibhagwan/fzf-lua",
         -- optional for icon support
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             -- calling `setup` is optional for customization
-            require("fzf-lua").setup({})
+            require('fzf-lua').setup({
+                grep = {
+                    -- Using ripgrep with forced color output
+                    prompt         = '🔎',
+                    grep_opts      = "--color=always --line-number --column --no-heading",
+                    border         = 'rounded',
+                    preview_border = 'rounded',
+                    preview_wrap   = 'nowrap',
+                    preview_layout = 'flex',
+
+                },
+            })
         end
-    },
-    { "windwp/nvim-ts-autotag" },
+    }
+
+    ,
     { 'nvim-lua/plenary.nvim' },
     {
         "j-hui/fidget.nvim",
@@ -116,6 +129,7 @@ return {
     },
     { "github/copilot.vim" },
     { 'romgrk/nvim-treesitter-context' },
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'RRethy/vim-illuminate' },
     {
         "zbirenbaum/neodim",
@@ -151,5 +165,7 @@ return {
             t['<C-j>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '350', [['sine']] } }
             require('neoscroll.config').set_mappings(t)
         end
-    }
+    }, {
+    "windwp/nvim-ts-autotag"
+},
 }
