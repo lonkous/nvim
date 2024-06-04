@@ -13,20 +13,20 @@ return {
         local action_layout = require("telescope.actions.layout")
 
         builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+        vim.keymap.set('n', '<C-p>', ":FzfLua git_files<CR>")
         vim.keymap.set("i", "<C-c>", "<Esc>")
         vim.keymap.set("n", "<leader>of", "<Cmd>Telescope oldfiles<CR>")
 
         vim.api.nvim_set_keymap(
             "n",
             "<C-f>",
-            ":Telescope current_buffer_fuzzy_find <CR>",
+            ":FzfLua lgrep_curbuf<CR>",
             { noremap = true }
         )
         vim.api.nvim_set_keymap(
             "n",
             "<space>fb",
-            ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+            ":Telescope file_browser path=%:p:h select_buffer=true hidden=true<CR>",
             { noremap = true }
         )
 
@@ -43,37 +43,31 @@ return {
             ":Telescope search_history<CR>",
             { noremap = true }
         )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>B",
-            ":Telescope git_branches<CR>",
-            { noremap = true }
-        )
 
         vim.api.nvim_set_keymap(
             "n",
             "<space>ff",
-            ":Telescope find_files path=%:p:h <CR>",
+            ":FzfLua files<CR>",
             { noremap = true }
         )
 
         vim.api.nvim_set_keymap(
             "n",
             "<space>gs",
-            ":Telescope git_status<CR>",
+            ":FzfLua git_status<CR>",
             { noremap = true }
         )
 
         vim.api.nvim_set_keymap(
             "n",
             "<space>gc",
-            ":Telescope git_commits<CR>",
+            ":FzfLua git_commits<CR>",
             { noremap = true }
         )
         vim.api.nvim_set_keymap(
             "n",
             "<space>gb",
-            ":Telescope git_branches<CR>",
+            ":FzfLua git_branches<CR>",
             { noremap = true }
         )
 
@@ -85,18 +79,24 @@ return {
         )
         vim.api.nvim_set_keymap(
             "n",
+            "<space>l",
+            ":FzfLua lsp_document_symbols<CR>",
+            { noremap = true }
+        )
+        vim.api.nvim_set_keymap(
+            "n",
             "<space>or",
             ":FzfLua resume<CR>",
             { noremap = true }
         )
 
-        vim.api.nvim_set_keymap('n', '<leader>e', ":lua PromptForFileTypeAndSearch()<CR>",
-            { noremap = true, silent = true })
 
         function PromptForFileTypeAndSearchPath(path)
             local filetype = vim.fn.input('Enter file type (e.g., js, lua): ')
             if filetype ~= '' then
-                local rg_cmd = "rg --column --color=always --no-heading --line-number --smart-case --hidden --stats --follow --glob '!{node_modules,.git}' -g '*." .. filetype .. "'"
+                local rg_cmd =
+                    "rg --column --color=always --no-heading --line-number --smart-case --hidden --stats --follow --glob '!{node_modules,.git}' -g '*." ..
+                    filetype .. "'"
                 require 'fzf-lua'.live_grep({
                     cmd = rg_cmd,
                     cwd = path or nil
@@ -110,24 +110,51 @@ return {
             end
         end
 
-        vim.api.nvim_set_keymap('n', '<leader>e', ":lua PromptForFileTypeAndSearchPath()<CR>",
+        function PromptForFileTypeAndSearch()
+            local filetype = vim.fn.input('Enter file type (e.g., js, lua): ')
+            if filetype ~= '' then
+                local rg_cmd = "rg --column --color=always -g '*." .. filetype .. "'"
+                require 'fzf-lua'.live_grep({
+                    cmd = rg_cmd
+                })
+            else
+                print("No file type provided. Search aborted.")
+            end
+        end
+
+        vim.api.nvim_set_keymap('n', '<leader>e', ":lua PromptForFileTypeAndSearch()<CR>",
+            { noremap = true, silent = true })
+
+        vim.api.nvim_set_keymap('n', '<leader>ep', ":lua PromptForFileTypeAndSearchPath()<CR>",
             { noremap = true, silent = true })
 
 
-        -- Keybinding to prompt for file type and search
         vim.api.nvim_set_keymap('n', '<leader>oe', ":lua PromptForFileTypeAndSearchPath( '~/odoo/')<CR>",
+            { noremap = true, silent = true })
+
+        function PromptLocation()
+            local location = vim.fn.input('Enter location: ')
+            PromptForFileTypeAndSearchPath(location)
+        end
+
+        vim.api.nvim_set_keymap('n', '<leader>el', ":lua PromptLocation()<CR>",
+            { noremap = true, silent = true })
+
+        function CurrentLocation()
+            local location = vim.fn.expand('%:p:h')
+            PromptForFileTypeAndSearchPath(location)
+        end
+
+        vim.api.nvim_set_keymap('n', '<leader>ec', ":lua CurrentLocation()<CR>",
             { noremap = true, silent = true })
 
         telescope.setup({
             defaults = {
                 vimgrep_arguments = {
                     "rg",
-                    "-L",
-                    "--color=never",
-                    "--no-heading",
-                    "--with-filename",
                     "--line-number",
                     "--column",
+                    "--follow",
                     "--smart-case",
                 },
                 layout_strategy = "flex",

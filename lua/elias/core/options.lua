@@ -4,7 +4,7 @@ vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
 
-vim.opt.wrap = true
+vim.opt.wrap = false
 
 vim.opt.shiftwidth = 4
 

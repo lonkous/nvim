@@ -32,10 +32,10 @@ return {
                     keymap.set("n", "H", function() vim.diagnostic.open_float() end, opts)
                     keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
                     keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-                    keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+                    keymap.set("n", "<leader>k", function() vim.lsp.buf.code_action() end, opts)
                     keymap.set("n", "Q", function() vim.lsp.buf.quickfix() end, opts)
                     keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-                    keymap.set("n", "vrn", function() vim.lsp.buf.rename() end, opts)
+                    keymap.set("n", "rn", function() vim.lsp.buf.rename() end, opts)
                     keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
                 end,
             })
@@ -45,12 +45,25 @@ return {
             -- Change the Diagnostic symbols in the sign column (gutter)
             -- (not in youtube nvim video)
             local signs = { Error = "✘", Warn = " ", Hint = "󰠠 ", Info = " " }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl,
-                    { text = icon, texthl = hl, numhl = "" })
-                vim.cmd("highlight link " .. hl .. " LspDiagnosticsSign" .. type)
-            end
+            local hl_groups = {
+                [vim.diagnostic.severity.ERROR] = 'LspDiagnosticsSignError',
+                [vim.diagnostic.severity.WARN] = 'LspDiagnosticsSignWarning',
+                [vim.diagnostic.severity.HINT] = 'LspDiagnosticsSignHint',
+                [vim.diagnostic.severity.INFO] = 'LspDiagnosticsSignInformation',
+            }
+
+            vim.diagnostic.config({
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = signs.Error,
+                        [vim.diagnostic.severity.WARN] = signs.Warn,
+                        [vim.diagnostic.severity.HINT] = signs.Hint,
+                        [vim.diagnostic.severity.INFO] = signs.Info,
+                    },
+                    linehl = hl_groups,
+                    numhl = hl_groups,
+                },
+            })
 
             local odoo_root_dir = function(fname)
                 return lspconfig.util.find_git_ancestor(fname) or
