@@ -64,23 +64,16 @@ return {
                     numhl = hl_groups,
                 },
             })
-
-            local odoo_root_dir = function(fname)
-                return lspconfig.util.find_git_ancestor(fname) or
-                    lspconfig.util.root_pattern('.odoo_lsp', '.odoo_lsp.json')(fname)
-            end
-
-            -- Setup for odoo-lsp
-            lspconfig.odoo_lsp.setup {
-                cmd = { 'odoo-lsp' },
-                filetypes = { 'javascript', 'xml', 'python' },
-                root_dir = odoo_root_dir,
-                on_attach = function(client, bufnr)
-                    -- Your on_attach function here, similar to what you've defined globally or custom for odoo-lsp
-                end,
-                capabilities = capabilities,
-            }
+            vim.tbl_deep_extend('keep', lspconfig, {
+                odoo_lsp = {
+                    cmd = 'odoo-lsp',
+                    filetypes = { 'javascript', 'xml', 'python' },
+                    root_dir = lspconfig.util.root_pattern('.odoo_lsp', '.odoo_lsp.json', '.git')
+                }
+            })
         end,
+
+
     },
     {
         "williamboman/mason.nvim",
@@ -109,16 +102,19 @@ return {
             mason_lspconfig.setup({
                 -- list of servers for mason to install
                 ensure_installed = {
-                    "lua_ls",   --Lua ls
-                    "pylsp",    --Python ls
-                    "bashls",   --Bash ls
-                    "tsserver", --Typescript ls
-                    "lemminx",  --Lemminx ls
-                    "vimls",    --Vimscript
-                    "jsonls",   --Json ls
-                    "html",     --Html lsp
-                    "cssls",    --Css ls
-                    "clangd",   --C/C++ ls
+                    "lua_ls",        --Lua lsp
+                    "pylsp",         --Python lsp
+                    "bashls",        --Bash lsp
+                    "tsserver",      --Typescript lsp
+                    "lemminx",       --Lemminx lsp
+                    "vimls",         --Vimscript lsp
+                    "jsonls",        --Json lsp
+                    "html",          --Html lsp
+                    "cssls",         --Css lsp
+                    "clangd",        --C/C++ lsp
+                    "rust_analyzer", --Rust lsp
+                    "jdtls",         --Java lsp
+                    "asm_lsp",       --Assembly lsp
                 },
                 -- auto-install configured servers (with lspconfig)
                 automatic_installation = true, -- not the same as ensure_installed
@@ -130,20 +126,9 @@ return {
                 end,
                 function(server_name)
                     --
-                    -- This function handles the setup for each server Mason manages
-                    if server_name == "odoo_lsp" then
-                        -- Custom setup for odoo-lsp
-                        lspconfig.odoo_lsp.setup {
-                            cmd = { 'odoo-lsp' },
-                            filetypes = { 'javascript', 'xml', 'python' },
-                            root_dir = root_dir,
-                            -- Include any other necessary configurations here
-                        }
-                    else
-                        -- Default handler for all other servers
-                        lspconfig[server_name].setup {}
-                    end
-                end,
+                    -- Default handler for all other servers
+                    lspconfig[server_name].setup {}
+                end
             }
         end,
     },

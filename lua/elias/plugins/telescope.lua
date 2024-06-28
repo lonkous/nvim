@@ -15,7 +15,7 @@ return {
         builtin = require('telescope.builtin')
         vim.keymap.set('n', '<C-p>', ":FzfLua git_files<CR>")
         vim.keymap.set("i", "<C-c>", "<Esc>")
-        vim.keymap.set("n", "<leader>of", "<Cmd>Telescope oldfiles<CR>")
+        vim.keymap.set("n", "<leader>of", "<Cmd>FzfLua oldfiles<CR>")
 
         vim.api.nvim_set_keymap(
             "n",
@@ -43,7 +43,12 @@ return {
             ":Telescope search_history<CR>",
             { noremap = true }
         )
-
+        vim.api.nvim_set_keymap(
+            "n",
+            "<space>off",
+            ":lua require'fzf-lua'.files({cwd='~/odoo/' })<CR>",
+            { noremap = true }
+        )
         vim.api.nvim_set_keymap(
             "n",
             "<space>ff",
@@ -99,12 +104,14 @@ return {
                     filetype .. "'"
                 require 'fzf-lua'.live_grep({
                     cmd = rg_cmd,
-                    cwd = path or nil
+                    cwd = path or nil,
+                    file_ignore_patterns = { 'bin', 'lib' }
 
                 })
             else
                 require 'fzf-lua'.live_grep({
-                    cwd = path or nil
+                    cwd = path or nil,
+                    file_ignore_patterns = { 'bin', 'lib' }
 
                 })
             end
@@ -115,7 +122,8 @@ return {
             if filetype ~= '' then
                 local rg_cmd = "rg --column --color=always -g '*." .. filetype .. "'"
                 require 'fzf-lua'.live_grep({
-                    cmd = rg_cmd
+                    cmd = rg_cmd,
+                    file_ignore_patterns = { 'bin', 'lib' }
                 })
             else
                 print("No file type provided. Search aborted.")
