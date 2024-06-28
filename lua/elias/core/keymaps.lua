@@ -25,5 +25,5 @@ vim.keymap.set('n', '<A-w>', '<Cmd>bdelete<CR>')
 vim.keymap.set('n', '<A-q>', '<Cmd>q<CR>')
 vim.keymap.set("n", "<C-s>", '<Cmd>w<CR>')
 vim.keymap.set("n", "<leader>G", ':LazyGit<CR>')
-vim.keymap.set("n", "<A-f>", ':lua vim.lsp.buf.format()')
+vim.keymap.set("n", "<A-f>", ':lua vim.lsp.buf.format()') -- readd in <CR>
 vim.keymap.set("v", "<leader>c", '"+y')
