@@ -15,7 +15,7 @@ return {
         builtin = require('telescope.builtin')
         vim.keymap.set('n', '<C-p>', ":FzfLua git_files<CR>")
         vim.keymap.set("i", "<C-c>", "<Esc>")
-        vim.keymap.set("n", "<leader>of", "<Cmd>FzfLua oldfiles<CR>")
+        vim.keymap.set("n", "<leader>of", "<Cmd>Telescope oldfiles<CR>")
 
         vim.api.nvim_set_keymap(
             "n",

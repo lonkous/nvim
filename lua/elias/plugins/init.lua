@@ -165,14 +165,18 @@ return {
             t['<C-j>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '350', [['sine']] } }
             require('neoscroll.config').set_mappings(t)
         end
-    }, 
+    },
     { "windwp/nvim-ts-autotag" },
-    {'brenoprata10/nvim-highlight-colors',
+    {
+        'brenoprata10/nvim-highlight-colors',
         config = function()
             require('nvim-highlight-colors').setup({
-                render = 'foreground',
+                render = 'background',
                 enable_tailwind = true,
             })
         end
-    },
+    }, {
+
+    "mfussenegger/nvim-lint", },
+    { "rshkarin/mason-nvim-lint", },
 }
