@@ -109,7 +109,7 @@ return {
             ls.add_snippets("javascript", {
 
                 ls.parser.parse_snippet(
-                    "ccc",
+                    "cc",
                     "console.log(${1:variable})"
                 ),
 
