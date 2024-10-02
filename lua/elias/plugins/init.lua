@@ -180,9 +180,4 @@ return {
 			})
 		end,
 	},
-	{
-
-		"mfussenegger/nvim-lint",
-	},
-	{ "rshkarin/mason-nvim-lint" },
 }

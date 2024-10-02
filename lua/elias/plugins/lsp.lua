@@ -87,7 +87,7 @@ return {
 					numhl = hl_groups,
 				},
 			})
-			lspconfig.tsserver.setup({
+			lspconfig.ts_ls.setup({
 				on_attach = function(client, bufnr)
 					client.server_capabilities.documentFormattingProvider = false
 				end,
@@ -95,94 +95,6 @@ return {
 			lspconfig.lua.setup({
 				on_attach = function(client, bufnr)
 					client.server_capabilities.documentFormattingProvider = false
-				end,
-			})
-		end,
-	},
-	{
-		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"williamboman/mason.nvim",
-			"nvimtools/none-ls.nvim",
-			"nvimtools/none-ls-extras.nvim",
-		},
-		config = function()
-			local null_ls = require("null-ls")
-
-			require("mason-null-ls").setup({
-				ensure_installed = { "stylua", "prettier", "eslint", "black", "jq" },
-			})
-			null_ls.setup({
-				debug = true,
-				sources = {
-					null_ls.builtins.completion.spell,
-					null_ls.builtins.formatting.prettier.with({
-						filetypes = { "javascript", "typescript", "css", "html", "json", "yaml", "markdown" },
-					}),
-					null_ls.builtins.formatting.stylua.with({
-						filetypes = { "lua" },
-					}),
-				},
-			})
-		end,
-	},
-	{
-		"williamboman/mason.nvim",
-		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-		},
-		config = function()
-			-- import mason
-			local mason = require("mason")
-
-			-- import mason-lspconfig
-			local mason_lspconfig = require("mason-lspconfig")
-
-			-- enable mason and configure icons
-			mason.setup({
-				ui = {
-					icons = {
-						package_installed = "✓",
-						package_pending = "➜",
-						package_uninstalled = "✗",
-					},
-				},
-			})
-
-			mason_lspconfig.setup({
-				-- list of servers for mason to install
-				ensure_installed = {
-					"lua_ls", --Lua lsp
-					"pylsp", --Python lsp
-					"bashls", --Bash lsp
-					"tsserver", --Typescript lsp
-					"vimls", --Vimscript lsp
-					"jsonls", --Json lsp
-					"html", --Html lsp
-					"cssls", --Css lsp
-					"clangd", --C/C++ lsp
-					"rust_analyzer", --Rust lsp
-					"jdtls", --Java lsp
-					"asm_lsp", --Assembly lsp
-				},
-				-- auto-install configured servers (with lspconfig)
-				automatic_installation = true, -- not the same as ensure_installed
-			})
-			local lspconfig = require("lspconfig")
-			local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			local lsp_attach = function(client, bufnr)
-				-- Create your keybindings here...
-			end
-
-			require("mason-lspconfig").setup_handlers({
-				function(server_name)
-					lspconfig[server_name].setup({
-						on_attach = lsp_attach,
-						capabilities = lsp_capabilities,
-					})
 				end,
 			})
 		end,

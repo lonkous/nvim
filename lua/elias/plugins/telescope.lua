@@ -33,7 +33,7 @@ return {
         vim.api.nvim_set_keymap(
             "n",
             "<space>f",
-            ":FzfLua live_grep search_dirs=. hidden=true<CR>",
+            ":Telescope live_grep search_dirs=. hidden=true<CR>",
             { noremap = true }
         )
 
@@ -79,7 +79,7 @@ return {
         vim.api.nvim_set_keymap(
             "n",
             "<space>od",
-            ":lua require'fzf-lua'.live_grep({cwd='~/odoo/' })<CR>",
+            ":Telescope live_grep search_dirs=~/odoo/ hidden=true<CR>",
             { noremap = true }
         )
         vim.api.nvim_set_keymap(
