@@ -15,7 +15,7 @@ return {
         builtin = require('telescope.builtin')
         vim.keymap.set('n', '<C-p>', ":FzfLua git_files<CR>")
         vim.keymap.set("i", "<C-c>", "<Esc>")
-        vim.keymap.set("n", "<leader>of", "<Cmd>Telescope oldfiles<CR>")
+        vim.keymap.set("n", "<leader>of", "<Cmd>FzfLua oldfiles<CR>")
 
         vim.api.nvim_set_keymap(
             "n",
@@ -33,7 +33,7 @@ return {
         vim.api.nvim_set_keymap(
             "n",
             "<space>f",
-            ":Telescope live_grep search_dirs=. hidden=true<CR>",
+            ":FzfLua live_grep search_dirs=. hidden=true<CR>",
             { noremap = true }
         )
 
@@ -79,13 +79,13 @@ return {
         vim.api.nvim_set_keymap(
             "n",
             "<space>od",
-            ":Telescope live_grep search_dirs=~/odoo/ hidden=true<CR>",
+            ":lua require'fzf-lua'.live_grep({cwd='~/odoo/' })<CR>",
             { noremap = true }
         )
         vim.api.nvim_set_keymap(
             "n",
             "<space>l",
-            ":FzfLua lsp_document_symbols<CR>",
+            ":Telescope lsp_document_symbols<CR>",
             { noremap = true }
         )
         vim.api.nvim_set_keymap(

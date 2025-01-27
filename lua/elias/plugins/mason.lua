@@ -37,7 +37,6 @@ return {
 					"rust_analyzer", --Rust lsp
 					"lemminx", --XML lsp
 					"jdtls", --Java lsp
-					"asm_lsp", --Assembly lsp
 				},
 				-- auto-install configured servers (with lspconfig)
 				automatic_installation = true, -- not the same as ensure_installed
