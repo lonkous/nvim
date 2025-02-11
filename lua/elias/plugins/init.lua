@@ -76,7 +76,6 @@ return {
             })
         end,
     },
-    { "nvim-lua/plenary.nvim" },
     {
         "j-hui/fidget.nvim",
         dependencies = { "rcarriga/nvim-notify" },
