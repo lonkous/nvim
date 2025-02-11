@@ -21,7 +21,8 @@ return {
             require("todo-comments").setup({})
         end,
     },
-    { "mbbill/undotree",             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle) },
+    { "mbbill/undotree",
+        vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle) },
     { "tpope/vim-fugitive" },
     { "HiPhish/nvim-ts-rainbow2" },
     {
@@ -30,16 +31,6 @@ return {
         config = true,
         opts = {},
     },
-    {
-        "folke/trouble.nvim",
-        requires = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("trouble").setup({
-                mode = "document_diagnostics",
-            })
-        end,
-    },
-    { "j-hui/fidget.nvim" },
     {
         "kdheepak/lazygit.nvim",
         cmd = {
@@ -63,7 +54,10 @@ return {
             require("which-key").setup({})
         end,
     },
-    { "junegunn/fzf",         build = "./install --bin" },
+    {
+        "junegunn/fzf",
+        build = "./install --bin"
+    },
     {
         "ibhagwan/fzf-lua",
         -- optional for icon support
@@ -98,29 +92,6 @@ return {
             })
         end,
     },
-    {
-        "SirVer/ultisnips",
-        config = function()
-            local ls = require("luasnip")
-            ls.add_snippets("java", {
-
-                ls.parser.parse_snippet("lo", "log.info(${1})"),
-            })
-            ls.add_snippets("javascript", {
-
-                ls.parser.parse_snippet("cc", "console.log(${1})"),
-            })
-            ls.add_snippets("python", {
-                ls.parser.parse_snippet("lo", "_logger.info(${1})"),
-            })
-            ls.filetype_extend("typescriptreact", { "javascriptreact" })
-            ls.filetype_extend("typescript", { "javascript" })
-            ls.filetype_extend("javascript", { "html" })
-            ls.filetype_extend("htmlangular", { "html" })
-            ls.filetype_extend("xml", { "html" })
-            ls.filetype_extend("typescriptreact", { "javascript" })
-        end,
-    },
     { "github/copilot.vim" },
     { "romgrk/nvim-treesitter-context" },
     { "nvim-treesitter/nvim-treesitter-textobjects" },
@@ -146,32 +117,6 @@ return {
                 priority = 128,
                 disable = {},
             })
-        end,
-    },
-    {
-        "karb94/neoscroll.nvim",
-        config = function()
-            neoscroll = require("neoscroll")
-            local keymap = {
-                ["<C-k>"] = function()
-                    neoscroll.scroll(-50, {
-                        move_cursor = true,
-                        duration = 150,
-                        easing = "easeInOutQuint",
-                    })
-                end,
-                ["<C-j>"] = function()
-                    neoscroll.scroll(50, {
-                        move_cursor = true,
-                        duration = 150,
-                        easing = "easeInOutQuint",
-                    })
-                end,
-            }
-            local modes = { "n", "v", "x" }
-            for key, func in pairs(keymap) do
-                vim.keymap.set(modes, key, func)
-            end
         end,
     },
     { "windwp/nvim-ts-autotag" },
