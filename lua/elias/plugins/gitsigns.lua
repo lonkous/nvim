@@ -42,6 +42,4 @@ return {
     end,
     vim.api.nvim_set_keymap('n', '<leader>gn', ":Git switch -c ",
         { noremap = true, silent = true })
-
-
 }
