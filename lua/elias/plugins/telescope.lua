@@ -85,7 +85,7 @@ return {
         vim.api.nvim_set_keymap(
             "n",
             "<space>l",
-            ":Telescope lsp_document_symbols<CR>",
+            ":FzfLua lsp_document_symbols<CR>",
             { noremap = true }
         )
         vim.api.nvim_set_keymap(
