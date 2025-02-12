@@ -7,13 +7,11 @@ return {
         version = "*",
         dependencies = {
             "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
+            "nvim-tree/nvim-web-devicons",
         },
         opts = {
-            -- configurations go here
         },
     },
-    { "echasnovski/mini.indentscope" },
     {
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -24,7 +22,6 @@ return {
     { "mbbill/undotree",
         vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle) },
     { "tpope/vim-fugitive" },
-    { "HiPhish/nvim-ts-rainbow2" },
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
@@ -82,15 +79,6 @@ return {
         opts = {},
     },
     { "farmergreg/vim-lastplace" },
-    {
-        "rmagatti/auto-session",
-        config = function()
-            require("auto-session").setup({
-                log_level = "error",
-                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-            })
-        end,
-    },
     { "github/copilot.vim" },
     { "romgrk/nvim-treesitter-context" },
     { "nvim-treesitter/nvim-treesitter-textobjects" },
@@ -118,7 +106,18 @@ return {
             })
         end,
     },
-    { "windwp/nvim-ts-autotag" },
+    {
+        "windwp/nvim-ts-autotag",
+        config = function()
+            require('nvim-ts-autotag').setup({
+                opts = {
+                    enable_close = true,
+                    enable_rename = true,
+                    enable_close_on_slash = false
+                },
+            })
+        end
+    },
     {
         "brenoprata10/nvim-highlight-colors",
         config = function()
