@@ -79,6 +79,15 @@ return {
         opts = {},
     },
     { "farmergreg/vim-lastplace" },
+    {
+        "rmagatti/auto-session",
+        config = function()
+            require("auto-session").setup({
+                log_level = "error",
+                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            })
+        end,
+    },
     { "github/copilot.vim" },
     { "romgrk/nvim-treesitter-context" },
     { "nvim-treesitter/nvim-treesitter-textobjects" },
