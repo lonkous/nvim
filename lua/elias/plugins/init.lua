@@ -23,10 +23,17 @@ return {
         vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle) },
     { "tpope/vim-fugitive" },
     {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = true,
-        opts = {},
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        -- Optional dependency
+        dependencies = { 'hrsh7th/nvim-cmp' },
+        config = function()
+            require('nvim-autopairs').setup {}
+            -- If you want to automatically add `(` after selecting a function or method
+            local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+            local cmp = require 'cmp'
+            cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+        end,
     },
     {
         "kdheepak/lazygit.nvim",
@@ -54,24 +61,6 @@ return {
     {
         "junegunn/fzf",
         build = "./install --bin"
-    },
-    {
-        "ibhagwan/fzf-lua",
-        -- optional for icon support
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            -- calling `setup` is optional for customization
-            require("fzf-lua").setup({
-                grep = {
-                    -- Using ripgrep with forced color output
-                    prompt = "🔎",
-                    grep_opts = "--color=always --line-number --column --no-heading",
-                    border = "rounded",
-                    wrap = "nowrap",
-                    layout = "flex",
-                },
-            })
-        end,
     },
     {
         "j-hui/fidget.nvim",
@@ -136,4 +125,5 @@ return {
             })
         end,
     },
+    { 'tpope/vim-sleuth' },
 }

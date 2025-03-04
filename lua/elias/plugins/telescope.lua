@@ -11,150 +11,66 @@ return {
         local telescope = require("telescope")
         local actions = require("telescope.actions")
         local action_layout = require("telescope.actions.layout")
+        local builtin = require('telescope.builtin')
 
-        builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<C-p>', ":FzfLua git_files<CR>")
+        vim.keymap.set('n', '<C-p>', builtin.git_files)
         vim.keymap.set("i", "<C-c>", "<Esc>")
-        vim.keymap.set("n", "<leader>of", "<Cmd>FzfLua oldfiles<CR>")
-
-        vim.api.nvim_set_keymap(
-            "n",
-            "<C-f>",
-            ":FzfLua lgrep_curbuf<CR>",
-            { noremap = true }
-        )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>fb",
+        vim.keymap.set('n', '<leader>of', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+        vim.keymap.set('n', '<C-f>', builtin.current_buffer_fuzzy_find)
+        vim.keymap.set('n', '<space>fb',
             ":Telescope file_browser path=%:p:h select_buffer=true hidden=true<CR>",
             { noremap = true }
         )
-
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>f",
-            ":FzfLua live_grep search_dirs=. hidden=true<CR>",
-            { noremap = true }
-        )
-
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>fh",
-            ":Telescope search_history<CR>",
-            { noremap = true }
-        )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>off",
-            ":lua require'fzf-lua'.files({cwd='~/odoo/' })<CR>",
-            { noremap = true }
-        )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>ff",
-            ":FzfLua files<CR>",
-            { noremap = true }
-        )
-
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>gs",
-            ":FzfLua git_status<CR>",
-            { noremap = true }
-        )
-
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>gc",
-            ":FzfLua git_commits<CR>",
-            { noremap = true }
-        )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>gb",
-            ":FzfLua git_branches<CR>",
-            { noremap = true }
-        )
-
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>od",
-            ":lua require'fzf-lua'.live_grep({cwd='~/odoo/' })<CR>",
-            { noremap = true }
-        )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>l",
-            ":FzfLua lsp_document_symbols<CR>",
-            { noremap = true }
-        )
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>or",
-            ":FzfLua resume<CR>",
-            { noremap = true }
-        )
-
+        vim.keymap.set('n', '<space>f', builtin.live_grep)
+        vim.keymap.set('n', '<space>fh', builtin.search_history)
+        vim.keymap.set('n', '<space>off', function() builtin.find_files({ cwd = '~/odoo/' }) end)
+        vim.keymap.set('n', '<space>ff', builtin.find_files)
+        vim.keymap.set('n', '<space>gs', builtin.git_status)
+        vim.keymap.set('n', '<space>gc', builtin.git_commits)
+        vim.keymap.set('n', '<space>gb', builtin.git_branches)
+        vim.keymap.set('n', '<space>od', function() builtin.live_grep({ cwd = '~/odoo/' }) end)
+        vim.keymap.set('n', '<space>l', builtin.lsp_document_symbols)
+        vim.keymap.set('n', '<space>or', builtin.resume)
 
         function PromptForFileTypeAndSearchPath(path)
             local filetype = vim.fn.input('Enter file type (e.g., js, lua): ')
             if filetype ~= '' then
-                local rg_cmd =
-                    "rg --column --color=always --no-heading --line-number --smart-case --hidden --stats --follow --glob '!{node_modules,.git}' -g '*." ..
-                    filetype .. "'"
-                require 'fzf-lua'.live_grep({
-                    cmd = rg_cmd,
-                    cwd = path or nil,
-                    file_ignore_patterns = { 'bin', 'lib' }
-
+                builtin.live_grep({
+                    search_dirs = { path or '.' },
+                    glob_pattern = '*.' .. filetype,
+                    additional_args = function() return { "--hidden", "--follow" } end,
                 })
             else
-                require 'fzf-lua'.live_grep({
-                    cwd = path or nil,
-                    file_ignore_patterns = { 'bin', 'lib' }
-
-                })
+                builtin.live_grep({ search_dirs = { path or '.' } })
             end
         end
 
         function PromptForFileTypeAndSearch()
             local filetype = vim.fn.input('Enter file type (e.g., js, lua): ')
             if filetype ~= '' then
-                local rg_cmd = "rg --column --color=always -g '*." .. filetype .. "'"
-                require 'fzf-lua'.live_grep({
-                    cmd = rg_cmd,
-                    file_ignore_patterns = { 'bin', 'lib' }
+                builtin.live_grep({
+                    glob_pattern = '*.' .. filetype,
+                    additional_args = function() return { "--hidden", "--follow" } end,
                 })
             else
                 print("No file type provided. Search aborted.")
             end
         end
 
-        vim.api.nvim_set_keymap('n', '<leader>e', ":lua PromptForFileTypeAndSearch()<CR>",
-            { noremap = true, silent = true })
-
-        vim.api.nvim_set_keymap('n', '<leader>ep', ":lua PromptForFileTypeAndSearchPath()<CR>",
-            { noremap = true, silent = true })
-
-
-        vim.api.nvim_set_keymap('n', '<leader>oe', ":lua PromptForFileTypeAndSearchPath( '~/odoo/')<CR>",
-            { noremap = true, silent = true })
-
-        function PromptLocation()
+        vim.keymap.set('n', '<leader>e', PromptForFileTypeAndSearch)
+        vim.keymap.set('n', '<leader>ep', PromptForFileTypeAndSearchPath)
+        vim.keymap.set('n', '<leader>oe', function() PromptForFileTypeAndSearchPath('~/odoo/') end)
+        vim.keymap.set('n', '<leader>el', function()
             local location = vim.fn.input('Enter location: ')
             PromptForFileTypeAndSearchPath(location)
-        end
-
-        vim.api.nvim_set_keymap('n', '<leader>el', ":lua PromptLocation()<CR>",
-            { noremap = true, silent = true })
-
-        function CurrentLocation()
+        end)
+        vim.keymap.set('n', '<leader>ec', function()
             local location = vim.fn.expand('%:p:h')
             PromptForFileTypeAndSearchPath(location)
-        end
+        end)
 
-        vim.api.nvim_set_keymap('n', '<leader>ec', ":lua CurrentLocation()<CR>",
-            { noremap = true, silent = true })
+        pcall(require('telescope').load_extension, 'fzf')
+        pcall(require('telescope').load_extension, 'ui-select')
 
         telescope.setup({
             defaults = {
@@ -164,39 +80,20 @@ return {
                     "--column",
                     "--follow",
                     "--smart-case",
+                    "--pcre2"
                 },
                 layout_strategy = "flex",
-
+                layout_config = {
+                    prompt_position = "top",
+                },
                 prompt_prefix = " ",
                 selection_caret = " ",
-                path_display = { "smart" },
-                generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
-                file_sorter = require('telescope.sorters').get_fuzzy_file,
-                color_devicons = true,
-
-
-                file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-                grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-                qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-                buffer_previewer_maker = require('telescope.previewers').buffer_previewer_make,
-                use_less = true,
-                set_env = { ["COLORTERM"] = "truecolor" },
-                layout_config = {
-                    vertical = {
-                        prompt_position = 'top',
-                        mirror = true,
-                    },
-                    horizontal = {
-                        prompt_position = 'top',
-                        mirror = false,
-                    }
-                },
+                path_display = { "absolute" },
                 sorting_strategy = 'ascending',
-                path_display = { "truncate " },
                 mappings = {
                     i = {
-                        ["<c-k>"] = actions.move_selection_previous, -- move to prev result
-                        ["<c-j>"] = actions.move_selection_next,     -- move to next result
+                        ["<c-k>"] = actions.move_selection_previous,
+                        ["<c-j>"] = actions.move_selection_next,
                         ["<c-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                         ["<C-u>"] = false,
                         ["<M-p>"] = action_layout.toggle_preview

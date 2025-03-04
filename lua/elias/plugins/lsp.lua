@@ -67,7 +67,7 @@ return {
             })
             local capabilities = cmp_nvim_lsp.default_capabilities()
 
-            local signs = { Error = "✘", Warn = " ", Hint = "󰠠 ", Info = " " }
+            local signs = { Error = "✘", Warn = "", Hint = "󰠠 ", Info = " " }
             local hl_groups = {
                 [vim.diagnostic.severity.ERROR] = "LspDiagnosticsSignError",
                 [vim.diagnostic.severity.WARN] = "LspDiagnosticsSignWarning",

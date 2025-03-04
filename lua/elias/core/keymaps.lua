@@ -27,3 +27,5 @@ vim.keymap.set("n", "<C-s>", "<Cmd>w<CR>")
 vim.keymap.set("n", "<leader>G", ":LazyGit<CR>")
 -- vim.keymap.set("n", "<A-f>", ":lua vim.lsp.buf.format()") -- readd in <CR>
 vim.keymap.set("v", "<leader>c", '"+y')
+vim.keymap.set("v", "<C-S-V>", '"+p')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
