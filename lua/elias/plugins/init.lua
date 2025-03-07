@@ -126,4 +126,5 @@ return {
         end,
     },
     { 'tpope/vim-sleuth' },
+    { 'tpope/vim-speeddating' }
 }
