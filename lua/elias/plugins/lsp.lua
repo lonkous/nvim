@@ -3,15 +3,12 @@ return {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
+            'saghen/blink.cmp',
             { "antosha417/nvim-lsp-file-operations", config = true },
         },
         config = function()
             -- import lspconfig plugin
             local lspconfig = require("lspconfig")
-
-            -- import cmp-nvim-lsp plugin
-            local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
             local keymap = vim.keymap -- for conciseness
 
@@ -65,7 +62,8 @@ return {
                     end, opts)
                 end,
             })
-            local capabilities = cmp_nvim_lsp.default_capabilities()
+            
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
             local signs = { Error = "✘", Warn = "", Hint = "󰠠 ", Info = " " }
             local hl_groups = {
