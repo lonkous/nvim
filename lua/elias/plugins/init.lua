@@ -44,7 +44,6 @@ return {
             "LazyGitFilter",
             "LazyGitFilterCurrentFile",
         },
-        -- optional for floating window border decoration
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
@@ -57,10 +56,6 @@ return {
             vim.o.timeoutlen = 300
             require("which-key").setup({})
         end,
-    },
-    {
-        "junegunn/fzf",
-        build = "./install --bin"
     },
     {
         "j-hui/fidget.nvim",
