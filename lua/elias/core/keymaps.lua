@@ -29,3 +29,6 @@ vim.keymap.set("n", "<leader>G", ":LazyGit<CR>")
 vim.keymap.set("v", "<leader>c", '"+y')
 vim.keymap.set("v", "<C-S-V>", '"+p')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set("v", "<leader>U", ":<C-u>'<,'>s/\\%V\\<.\\%V/\\u&/g<CR>:noh<CR>", { desc = "Capitalize words in selection" })
+
+
