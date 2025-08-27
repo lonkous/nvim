@@ -62,8 +62,6 @@ return {
                     end, opts)
                 end,
             })
-            
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
             local signs = { Error = "✘", Warn = "", Hint = "󰠠 ", Info = " " }
             local hl_groups = {

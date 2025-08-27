@@ -53,12 +53,14 @@ return {
 	{ "farmergreg/vim-lastplace" },
 	{
 		"rmagatti/auto-session",
-		config = function()
-			require("auto-session").setup({
-				log_level = "error",
-				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-			})
-		end,
+		lazy = false,
+
+		---@module "auto-session"
+		---@type AutoSession.Config
+		opts = {
+			suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+			-- log_level = 'debug',
+		},
 	},
 	{ "github/copilot.vim" },
 	{ "romgrk/nvim-treesitter-context" },

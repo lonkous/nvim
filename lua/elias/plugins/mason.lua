@@ -46,8 +46,6 @@ return {
 				autostart = false,
 			},
 			jsonls = {},
-			glsl_analyzer = {},
-			omnisharp = {},
 			pylsp = {},
 			sqlls = {},
 			html = {},
