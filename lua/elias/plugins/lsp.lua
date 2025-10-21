@@ -2,13 +2,22 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
+		build = "cargo build --release",
 		dependencies = {
 			"saghen/blink.cmp",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
 		},
 		config = function()
 			-- import lspconfig plugin
-			local lspconfig = require("lspconfig")
+			require("mason").setup({
+				ui = {
+					icons = {
+						package_installed = " ",
+						package_pending = " ",
+						package_uninstalled = " ",
+					},
+				},
+			})
 
 			local keymap = vim.keymap -- for conciseness
 
@@ -64,28 +73,32 @@ return {
 			})
 
 			local signs = { Error = "✘", Warn = "", Hint = "󰠠 ", Info = " " }
-			local hl_groups = {
-				[vim.diagnostic.severity.ERROR] = "LspDiagnosticsSignError",
-				[vim.diagnostic.severity.WARN] = "LspDiagnosticsSignWarning",
-				[vim.diagnostic.severity.HINT] = "LspDiagnosticsSignHint",
-				[vim.diagnostic.severity.INFO] = "LspDiagnosticsSignInformation",
-			}
-
 			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "", -- Could be '●', '▎', │, 'x', '■', , 
+				},
+				jump = {
+					float = true,
+				},
+				float = { border = "single" },
 				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = signs.Error,
-						[vim.diagnostic.severity.WARN] = signs.Warn,
-						[vim.diagnostic.severity.HINT] = signs.Hint,
-						[vim.diagnostic.severity.INFO] = signs.Info,
+						[vim.diagnostic.severity.ERROR] = " ",
+						[vim.diagnostic.severity.WARN] = " ",
+						[vim.diagnostic.severity.HINT] = "󰌶 ",
+						[vim.diagnostic.severity.INFO] = " ",
 					},
-					linehl = hl_groups,
-					numhl = hl_groups,
+					numhl = {
+						[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+						[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+						[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+						[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+					},
 				},
 			})
-			lspconfig.ts_ls.setup({
+
+			vim.lsp.config("ts_ls", {
 				on_attach = function(client, bufnr)
-					client.server_capabilities.documentFormattingProvider = true
 				end,
 			})
 			local home = os.getenv("HOME")
@@ -96,7 +109,8 @@ return {
 			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 			local workspace_dir = home .. "/.local/share/nvim/jdtls-workspace/" .. project_name
 
-			lspconfig.jdtls.setup({
+			-- Configure the jdtls server
+			vim.lsp.config("jdtls", {
 				cmd = {
 					"/usr/lib/jvm/java-21-openjdk-amd64/bin/java",
 					"-Declipse.application=org.eclipse.jdt.ls.core.id1",
@@ -111,13 +125,14 @@ return {
 					"--add-opens",
 					"java.base/java.lang=ALL-UNNAMED",
 					"-jar",
-					launcher_path,
+					launcher_path, -- Ensure this variable is defined
 					"-configuration",
-					mason_pkg_path .. "/config_linux",
+					mason_pkg_path .. "/config_linux", -- Ensure this variable is defined
 					"-data",
-					workspace_dir,
+					workspace_dir, -- Ensure this variable is defined
 				},
-				root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew"),
+				-- Correct way to specify root directory in the new API
+				root_dir = vim.fs.dirname(vim.fs.find({ ".git", "mvnw", "gradlew", "pom.xml" }, { upward = true })[1]),
 				settings = {
 					java = {
 						configuration = {
