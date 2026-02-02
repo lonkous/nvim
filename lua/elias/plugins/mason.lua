@@ -50,7 +50,7 @@ return {
 			sqlls = {},
 			html = {},
 			cssls = {},
-			ts_ls = {},
+			ts_ls = { },
 			lemminx = {},
 			vimls = {},
 			rust_analyzer = {},
@@ -61,6 +61,7 @@ return {
 			"stylua", --Formater Lua
 			"isort", --Formater Python
 			"autopep8",
+			"ts_ls",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

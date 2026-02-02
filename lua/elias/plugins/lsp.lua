@@ -97,10 +97,6 @@ return {
 				},
 			})
 
-			vim.lsp.config("ts_ls", {
-				on_attach = function(client, bufnr)
-				end,
-			})
 			local home = os.getenv("HOME")
 			local mason_pkg_path = home .. "/.local/share/nvim/mason/packages/jdtls"
 			local launcher_path = vim.fn.glob(mason_pkg_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")

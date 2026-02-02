@@ -62,7 +62,6 @@ return {
 			-- log_level = 'debug',
 		},
 	},
-	{ "github/copilot.vim" },
 	{ "romgrk/nvim-treesitter-context" },
 	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "RRethy/vim-illuminate" },
@@ -112,4 +111,7 @@ return {
 	},
 	{ "tpope/vim-sleuth" },
 	{ "tpope/vim-speeddating" },
+	{ "rhysd/git-messenger.vim",
+	vim.keymap.set("n", "<leader>gm", vim.cmd.GitMessenger) 
+	},
 }

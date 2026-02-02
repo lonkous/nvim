@@ -1,12 +1,26 @@
 return {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    opts = {
-        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-        auto_install = true,
-        highlight = {
-            enable = true,
-        },
-    },
+	"nvim-treesitter/nvim-treesitter",
+	config = function()
+		local filetypes = {
+			"bash",
+			"c",
+			"diff",
+			"html",
+			"lua",
+			"luadoc",
+			"markdown",
+			"markdown_inline",
+			"query",
+			"vim",
+			"vimdoc",
+			"python",
+		}
+		require("nvim-treesitter").install(filetypes)
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = filetypes,
+			callback = function()
+				vim.treesitter.start()
+			end,
+		})
+	end,
 }
