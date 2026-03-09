@@ -111,7 +111,18 @@ return {
 	},
 	{ "tpope/vim-sleuth" },
 	{ "tpope/vim-speeddating" },
-	{ "rhysd/git-messenger.vim",
-	vim.keymap.set("n", "<leader>gm", vim.cmd.GitMessenger) 
+	{ "rhysd/git-messenger.vim", vim.keymap.set("n", "<leader>gm", vim.cmd.GitMessenger) },
+	{
+		"HiPhish/rainbow-delimiters.nvim",
+		config = function()
+			local rd = require("rainbow-delimiters")
+
+			vim.g.rainbow_delimiters = {
+				strategy = {
+					[""] = rd.strategy.global,
+					xml = rd.strategy.noop,
+				},
+			}
+		end,
 	},
 }
