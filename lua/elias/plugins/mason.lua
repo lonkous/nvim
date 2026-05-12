@@ -42,9 +42,7 @@ return {
 				},
 			},
 			marksman = {},
-			jdtls = {
-				autostart = false,
-			},
+			jdtls = {},
 			jsonls = {},
 			pylsp = {},
 			sqlls = {},
