@@ -38,3 +38,5 @@ vim.opt.spelllang = "en"
 vim.opt.spell = false
 
 vim.opt.completeopt = "menuone,noselect"
+
+vim.g.python3_host_prog = "/usr/bin/python"
