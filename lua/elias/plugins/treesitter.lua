@@ -1,7 +1,12 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
+	build = ":TSUpdate",
+
 	config = function()
-		local filetypes = {
+		local treesitter = require("nvim-treesitter")
+
+		local languages = {
 			"bash",
 			"c",
 			"diff",
@@ -15,11 +20,15 @@ return {
 			"vimdoc",
 			"python",
 		}
-		require("nvim-treesitter").install(filetypes)
+
+		-- Install parsers
+		treesitter.install(languages)
+
+		-- Enable Treesitter for these filetypes
 		vim.api.nvim_create_autocmd("FileType", {
-			pattern = filetypes,
-			callback = function()
-				vim.treesitter.start()
+			pattern = languages,
+			callback = function(args)
+				pcall(vim.treesitter.start, args.buf)
 			end,
 		})
 	end,
